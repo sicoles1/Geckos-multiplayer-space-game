@@ -10,17 +10,21 @@ export class VirtualJoystick {
      * that is used to configure the color of the base and stick, and
      * transparency of the overall joystick object
      */
-    constructor(scene, x, y, radius, colorConfig) {
+    constructor(scene, x, y, radius, channel, colorConfig) {
         // Base variables
         this.scene = scene;
         this.x = x;
         this.y = y;
         this.radius = radius;
+        this.playerAngle = 0
+        this.lastAngle = 0
+        this.channel = channel
         this.colorConfig = colorConfig || {
             base: 0xFFFFFF,
             stick: 0xFF0000,
             alpha: 0.4
         }
+        scene.events.on('update',this.update, this)
         // Outer circle, part that doesn't move
         this.base = scene.add.circle(x, y, radius, this.colorConfig.base, this.colorConfig.alpha);
 
@@ -88,5 +92,28 @@ export class VirtualJoystick {
      */
     resetStick(stick) {
         stick.setPosition(this.x, this.y);
+    }
+
+    update(){
+        let X = this.joyX() * 250;
+        let Y = this.joyY() * 250;
+        if (X>0 && Y<0) {
+          this.playerAngle = Math.atan(Y/X)*180/Math.PI +360
+         } else if (X<0) {
+          this.playerAngle = Math.atan(Y/X)*180/Math.PI +180
+         } else {
+          this.playerAngle = Math.atan(Y/X)*180/Math.PI
+         }
+         if (this.playerAngle) {
+          this.lastAngle = this.playerAngle
+          } else {
+          this.playerAngle = this.lastAngle
+        }
+        let playerData = {
+          velX: X,
+          velY: Y,
+          playerAngle: this.playerAngle
+        }
+        this.channel.emit('playerMove', playerData)
     }
 }

@@ -72,14 +72,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.velX = data.velX;
     this.velY = data.velY;
     this.ang = data.playerAngle;
-   // this.playerAngle = data.playerAngle;
-    //this.playerSpeed = data.playerSpeed
     }
   
- // setSize(){
-  //  Align.scaleToGameW(this, 0.1)
-//  }
-
   update() {
     this.setVelocity(this.velX,this.velY)
     this.setAngle(this.ang)

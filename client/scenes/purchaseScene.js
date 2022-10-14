@@ -10,7 +10,7 @@ export default class PurchaseScene extends Scene {
       this.playerSpeed = data.playerSpeed
     }
     create(){
-
+    //this.scene.setVisible(false,'HUDScene')
     this.playerSpeedText = this.add.text(100, 200, '');
 
     this.increaseSpeedButton = new TextButton(this, 100, 100, 'Increase Speed', { fill: '#0f0'}, () => this.increaseSpeed());
@@ -32,8 +32,9 @@ export default class PurchaseScene extends Scene {
           channel: this.channel,
           playerSpeed: this.playerSpeed
         }
-        this.scene.launch('HUDScene',data)
-        this.scene.remove('PurchaseScene')
+       // this.scene.setVisible(true,'HUDScene')
+      // this.scene.start('HUDScene',data)
+        //this.scene.remove('PurchaseScene')
       }
     
       updatePlayerSpeedText() {

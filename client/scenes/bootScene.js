@@ -16,8 +16,8 @@ export default class BootScene extends Scene {
       }
       channel.on('ready', () => {
         this.scene.start('GameScene', data)
-       // this.scene.launch('PurchaseScene', data)
         this.scene.launch('HUDScene',  data )
+       // this.scene.launch('PurchaseScene', data)
       })
     })
   }

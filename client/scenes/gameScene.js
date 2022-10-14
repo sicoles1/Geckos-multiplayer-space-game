@@ -44,7 +44,7 @@ export default class GameScene extends Scene {
 
     const parseUpdates = updates => {
       if (typeof updates === undefined || updates === '') return []
-
+      const numParams = 5
       // parse
       let u = updates.split(',')
       u.pop()
@@ -52,7 +52,7 @@ export default class GameScene extends Scene {
       let u2 = []
 
       u.forEach((el, i) => {
-        if (i % 4 === 0) {
+        if (i % numParams === 0) {
           u2.push({
             playerId: u[i + 0],
             x: parseInt(u[i + 1], 36),
@@ -76,7 +76,7 @@ export default class GameScene extends Scene {
           let sprite = this.objects[playerId].sprite
           sprite.setAlpha(alpha)
           sprite.setPosition(x, y)
-          sprite.angle = ang
+          sprite.setAngle(ang)
         } else {
           // if the gameObject does NOT exist,
           // create a new gameObject

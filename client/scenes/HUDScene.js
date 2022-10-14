@@ -30,30 +30,10 @@ export default class HUDScene extends Scene {
       });
       //this.aGrid.showNumbers();
       this.aGrid.placeAtIndex(93,this.temp)     
-      this.joystick = new VirtualJoystick(this, this.temp.x, this.temp.y, 50);
-
+      this.joystick = new VirtualJoystick(this, this.temp.x, this.temp.y, 50,this.channel);
     }
 
     update(){
-        let X = this.joystick.joyX() * this.playerSpeed;
-        let Y = this.joystick.joyY() * this.playerSpeed;
-        if (X>0 && Y<0) {
-          this.playerAngle = Math.atan(Y/X)*180/Math.PI +360
-         } else if (X<0) {
-          this.playerAngle = Math.atan(Y/X)*180/Math.PI +180
-         } else {
-          this.playerAngle = Math.atan(Y/X)*180/Math.PI
-         }
-         if (this.playerAngle) {
-          this.lastAngle = this.playerAngle
-          } else {
-          this.playerAngle = this.lastAngle
-        }
-        let playerData = {
-          velX: X,
-          velY: Y,
-          playerAngle: this.playerAngle
-        }
-        this.channel.emit('playerMove', playerData)
+
     }
 }
