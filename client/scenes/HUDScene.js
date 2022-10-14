@@ -19,6 +19,8 @@ export default class HUDScene extends Scene {
     }
 
     create(){
+      this.lastAngle = 0;
+      this.playerAngle = 0;
       this.temp = this.add.sprite(0,0,'temp');
       this.temp.setVisible(false)
       this.aGrid= new AlignGrid({
@@ -30,33 +32,28 @@ export default class HUDScene extends Scene {
       this.aGrid.placeAtIndex(93,this.temp)     
       this.joystick = new VirtualJoystick(this, this.temp.x, this.temp.y, 50);
 
-    // this.PlayerSpeed = 500;
-     // this.lastAngle = 180;
-    //  this.playerAngle = 180;
-
-    // get sceneMain
-    this.gameScene = this.scene.get('GameScene');
-    console.log(this.playerSpeed)
-
     }
 
     update(){
         let X = this.joystick.joyX() * this.playerSpeed;
         let Y = this.joystick.joyY() * this.playerSpeed;
-        this.gameScene.joyX = X
-        this.gameScene.joyY = Y
         if (X>0 && Y<0) {
-          this.gameScene.playerAngle = Math.atan(Y/X)*180/Math.PI +360
+          this.playerAngle = Math.atan(Y/X)*180/Math.PI +360
          } else if (X<0) {
-          this.gameScene.playerAngle = Math.atan(Y/X)*180/Math.PI +180
+          this.playerAngle = Math.atan(Y/X)*180/Math.PI +180
          } else {
-          this.gameScene.playerAngle = Math.atan(Y/X)*180/Math.PI
+          this.playerAngle = Math.atan(Y/X)*180/Math.PI
          }
-         if (this.gameScene.playerAngle) {
-          this.lastAngle = this.gameScene.playerAngle
+         if (this.playerAngle) {
+          this.lastAngle = this.playerAngle
           } else {
-          this.gameScene.playerAngle = this.lastAngle
+          this.playerAngle = this.lastAngle
         }
-        console.log(X)
+        let playerData = {
+          velX: X,
+          velY: Y,
+          playerAngle: this.playerAngle
+        }
+        this.channel.emit('playerMove', playerData)
     }
 }

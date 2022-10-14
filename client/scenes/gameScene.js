@@ -122,11 +122,6 @@ export default class GameScene extends Scene {
   }
 
   update() {
-    let playerData = {
-      velX: this.joyX,
-      velY: this.joyY,
-      playerAngle: this.playerAngle
-    }
-    this.channel.emit('playerMove', playerData)
+
   }
 }

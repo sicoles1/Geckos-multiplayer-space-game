@@ -82,7 +82,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
   update() {
     this.setVelocity(this.velX,this.velY)
-    this.angle = this.ang
+    this.setAngle(this.ang)
   }
 
   postUpdate() { 
