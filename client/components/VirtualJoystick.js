@@ -10,7 +10,7 @@ export class VirtualJoystick {
      * that is used to configure the color of the base and stick, and
      * transparency of the overall joystick object
      */
-    constructor(scene, x, y, radius, channel, colorConfig) {
+    constructor(scene, x, y, radius, playerSpeed, channel, colorConfig) {
         // Base variables
         this.scene = scene;
         this.x = x;
@@ -19,6 +19,7 @@ export class VirtualJoystick {
         this.playerAngle = 0
         this.lastAngle = 0
         this.channel = channel
+        this.playerSpeed = playerSpeed
         this.colorConfig = colorConfig || {
             base: 0xFFFFFF,
             stick: 0xFF0000,
@@ -95,8 +96,8 @@ export class VirtualJoystick {
     }
 
     update(){
-        let X = this.joyX() * 250;
-        let Y = this.joyY() * 250;
+        let X = this.joyX() * this.playerSpeed;
+        let Y = this.joyY() * this.playerSpeed;
         if (X>0 && Y<0) {
           this.playerAngle = Math.atan(Y/X)*180/Math.PI +360
          } else if (X<0) {

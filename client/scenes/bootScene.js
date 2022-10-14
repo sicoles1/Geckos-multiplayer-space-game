@@ -12,12 +12,13 @@ export default class BootScene extends Scene {
       if (error) console.error(error.message)
       let data = {
         channel: channel,
-        playerSpeed: 250
+        playerSpeed: 250,
+        money: 100
       }
       channel.on('ready', () => {
-        this.scene.start('GameScene', data)
-        this.scene.launch('HUDScene',  data )
-       // this.scene.launch('PurchaseScene', data)
+       // this.scene.start('GameScene', data)
+       // this.scene.launch('HUDScene',  data )
+        this.scene.start('PurchaseScene', data)
       })
     })
   }

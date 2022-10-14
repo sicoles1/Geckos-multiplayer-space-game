@@ -15,7 +15,7 @@ const config = {
     width: 640,
     height: 640
   },
-  scene: [BootScene, GameScene, PurchaseScene, HUDScene]
+  scene: [BootScene, GameScene, HUDScene,PurchaseScene ]
 }
 
 window.addEventListener('load', () => {

@@ -10,6 +10,7 @@ export class TextButton extends Phaser.GameObjects.Text {
           this.enterButtonHoverState();
           callback();
         });
+        this.setOrigin(0.5)
     }
   
     enterButtonHoverState() {

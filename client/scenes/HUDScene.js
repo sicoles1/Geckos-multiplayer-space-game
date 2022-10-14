@@ -30,7 +30,7 @@ export default class HUDScene extends Scene {
       });
       //this.aGrid.showNumbers();
       this.aGrid.placeAtIndex(93,this.temp)     
-      this.joystick = new VirtualJoystick(this, this.temp.x, this.temp.y, 50,this.channel);
+      this.joystick = new VirtualJoystick(this, this.temp.x, this.temp.y, 50,this.playerSpeed,this.channel);
     }
 
     update(){
