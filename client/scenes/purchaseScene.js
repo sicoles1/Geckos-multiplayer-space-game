@@ -31,26 +31,38 @@ export default class PurchaseScene extends Scene {
       this.temp3.setVisible(false)
       this.temp4 = this.add.sprite(0,0,'temp');
       this.temp4.setVisible(false)
+      this.temp5 = this.add.sprite(0,0,'temp');
+      this.temp5.setVisible(false)
       this.aGrid= new AlignGrid({
         scene: this,
         rows: 11,
         cols: 11
       });
-     // this.aGrid.showNumbers();
+      //this.aGrid.showNumbers();
       this.aGrid.placeAtIndex(24,this.temp)
       this.aGrid.placeAtIndex(35,this.temp2) 
       this.aGrid.placeAtIndex(71,this.temp3)   
       this.aGrid.placeAtIndex(7,this.temp4)   
-    this.playerSpeedText = this.add.text(this.temp2.x, this.temp2.y, '').setOrigin(0.5);
-    this.startingMoneyText = this.add.text(this.temp4.x, this.temp4.y, `Remaining money: ${this.money}.`).setOrigin(0.5);
+      this.aGrid.placeAtIndex(18,this.temp5)   
 
-    this.increaseSpeedButton = new TextButton(this, this.temp.x, this.temp.y, 'Increase Speed', { fill: '#0f0'}, () => this.increaseSpeed());
-    this.add.existing(this.increaseSpeedButton);
+      this.playerSpeedText = this.add.text(this.temp2.x, this.temp2.y, '').setOrigin(0.5);
+      this.startingMoneyText = this.add.text(this.temp4.x, this.temp4.y, `Remaining money: ${this.money}.`).setOrigin(0.5);
+      
+      let rand = Phaser.Math.Between(0,100)
+      if (rand < 50) {
+        this.team = 1
+      } else {
+        this.team = 2
+      }
+      this.teamText = this.add.text(this.temp5.x,this.temp5.y,`You are on ${this.team} team`).setOrigin(0.5)
 
-    this.joinGameButton = new TextButton(this, this.temp3.x, this.temp3.y, 'Join Game', { fill: '#0f0'}, () => this.joinGame());
-    this.add.existing(this.joinGameButton);
+      this.increaseSpeedButton = new TextButton(this, this.temp.x, this.temp.y, 'Increase Speed', { fill: '#0f0'}, () => this.increaseSpeed());
+      this.add.existing(this.increaseSpeedButton);
 
-    this.updatePlayerSpeedText();
+      this.joinGameButton = new TextButton(this, this.temp3.x, this.temp3.y, 'Join Game', { fill: '#0f0'}, () => this.joinGame());
+      this.add.existing(this.joinGameButton);
+
+      this.updatePlayerSpeedText();
     }
 
     increaseSpeed() {
@@ -67,7 +79,8 @@ export default class PurchaseScene extends Scene {
     joinGame() {
         let data = {
           channel: this.channel,
-          playerSpeed: this.playerSpeed
+          playerSpeed: this.playerSpeed,
+          team: this.team
         }
        this.scene.start('GameScene', data)
        this.scene.launch('HUDScene',  data )

@@ -39,6 +39,7 @@ export class GameScene extends Scene {
 
   create() {
     this.playersGroup = this.add.group()
+    this.bulletGroup = this.add.group()
 
    /* const addDummy = () => {
       let x = Phaser.Math.RND.integerInRange(50, 800)
@@ -91,6 +92,18 @@ export class GameScene extends Scene {
 
       channel.emit('ready')
     })
+
+    // start auto fire
+    this.time.addEvent({
+      delay: 500,
+      callback: this.autoFire,
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  autoFire(){
+    console.log('FIRE')
   }
 
   update() {
